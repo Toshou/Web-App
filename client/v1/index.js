@@ -152,13 +152,42 @@ console.log(averagePrice);
 // 2. Log the variable
 // 3. Log the number of products by brands
 
+const brands = marketplaces.marketplace.reduce((brandsDesc, product) => {
+  const { brand } = product;
+  if (!brandsDesc[brand]) {
+    brandsDesc[brand] = [];
+  }
+  brandsDesc[brand].push(product);
+  return brandsDesc;
+}, {});
+
+//console.log(brands);
+
+//for (const brand in brands) {
+// console.log(`${brand}: ${brands[brand].length} products`);
+//}
+
 // 🎯 TODO 9: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
 
+//for (const brand in brands) {
+//  const products = brands[brand];
+//  const sortedProducts = products.sort((a, b) => b.price - a.price);
+//  const prices = sortedProducts.map(product => `${product.brand}: ${product.price}€`);
+//  console.log(prices.join(', ') + "\n");
+//}
+
 // 🎯 TODO 10: Sort by date for each brand
 // 1. For each brand, sort the products by date, from old to recent
 // 2. Log the sort
+
+//for (const brand in brands) {
+//  const products = brands[brand];
+//  const sortedProducts = products.sort((a, b) => new Date(a.released) - new Date(b.released));
+//  const dates = sortedProducts.map(product => `${product.brand}: ${product.released}`);
+//  console.log(dates.join(', ') + "\n");
+//  }
 
 /**
  * 💶
@@ -170,6 +199,14 @@ console.log(averagePrice);
 // 🎯 TODO 11: Compute the p90 price value
 // 1. Compute the p90 price value of each brand
 // The p90 value (90th percentile) is the lower value expected to be exceeded in 90% of the products
+
+//for (const brand in brands) {
+//  const prices = brands[brand].map(product => product.price);
+//  const sortedPrices = prices.sort((a, b) => a - b);
+//  const p90Index = Math.floor((sortedPrices.length - 1) * 0.9);
+//  const p90Price = sortedPrices[p90Index];
+//  console.log(`${brand}: ${p90Price}`);
+//}
 
 /**
  * 🧥
@@ -362,6 +399,15 @@ const COTELE_PARIS = [
 // 🎯 TODO 1: New released products
 // // 1. Log if we have new products only (true or false)
 // // A new product is a product `released` less than 2 weeks.
+
+const now = new Date();
+
+const hasNewProducts = COTELE_PARIS.some(product => {
+  const releasedDate = new Date(product.released);
+  const timeDiff = now.getTime() - releasedDate.getTime();
+  const daysDiff = timeDiff / (1000 * 3600 * 24);
+  return daysDiff <= 14;
+});
 
 // 🎯 TODO 2: Reasonable price
 // // 1. Log if coteleparis is a reasonable price shop (true or false)
