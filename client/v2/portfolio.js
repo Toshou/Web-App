@@ -30,8 +30,9 @@ const spanNbProducts = document.querySelector('#nbProducts');
 
 const reasonablePrice = document.querySelector('#RP[value<50]');
 
-const twoWeeksAgo = new Date(Date.now() - (14 * 24 * 60 * 60 * 1000)).toISOString();
-const recentRelease = document.querySelectorAll('#RR[data-release-date>="' + twoWeeksAgo + '"]');
+const twoWeeksBefore2020 = new Date('2020-01-01');
+twoWeeksBefore2020.setDate(twoWeeksBefore2020.getDate() - 14);
+const recentRelease = document.querySelectorAll('#RR[data-release-date>="' + twoWeeksBefore2020.toISOString() + '"]');
 
 /**
  * Set global value
