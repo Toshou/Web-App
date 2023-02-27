@@ -28,8 +28,6 @@ const selectBy = document.querySelector('#filters');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 
-const reasonablePrice = document.querySelector('#RP[value<50]');
-
 
 /**
  * Set global value
