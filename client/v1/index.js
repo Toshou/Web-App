@@ -52,28 +52,82 @@ console.log(cheapest_shirt)
 // 1. Create a variable and assign it the number of products
 // 2. Log the variable
 
+let marketplaces = require('./data.js');
+const compteur = marketplaces.marketplace.length;
+console.log(compteur);
+
 // 🎯 TODO 3: Brands name
 // 1. Create a variable and assign it the list of brands name only
 // 2. Log the variable
 // 3. Log how many brands we have
+
+const brandNames = prod.marketplace.map(item => item.brand);
+console.log(brandNames);
+console.log('We have ${brandNames.length} brands.');
 
 // 🎯 TODO 4: Sort by price
 // 1. Create a function to sort the marketplace products by price
 // 2. Create a variable and assign it the list of products by price from lowest to highest
 // 3. Log the variable
 
+function sortByPrice(marketplace) {
+  const sortedMarketplace = marketplace.slice().sort((a, b) => a.price - b.price)
+  return sortedMarketplace;
+}
+
+const sortedByPrice = sortByPrice(marketplaces.marketplace).map(item => {
+  return {
+    brand: item.brand,
+    price: item.price
+  }
+});
+//console.log(sortedByPrice);
+
 // 🎯 TODO 5: Sort by date
 // 1. Create a function to sort the marketplace objects by products date
 // 2. Create a variable and assign it the list of products by date from recent to old
 // 3. Log the variable
 
+function sortByDate(marketplace) {
+  const sortedMarketplace = marketplace.slice().sort((a, b) => {
+    const dateA = new Date(a.released);
+    const dateB = new Date(b.released);
+    return dateB - dateA;
+  });
+  return sortedMarketplace;
+}
+
+const sortedByDate = sortByDate(marketplaces.marketplace).map(item => {
+  return {
+    brand: item.brand,
+    date: item.released
+  }
+});
+
+//console.log(sortedByDate);
+
 // 🎯 TODO 6: Filter a specific price range
 // 1. Filter the list of products between 50€ and 100€
 // 2. Log the list
 
+const filteredByPrice = marketplaces.marketplace.filter(product => product.price >= 50 && product.price <= 100).map(item => {
+  return {
+    brand: item.brand,
+    price: item.price
+  }
+});
+
+//console.log(filteredByPrice);
+
 // 🎯 TODO 7: Average price
 // 1. Determine the average price of the marketplace
 // 2. Log the average
+
+
+const totalPrices = marketplaces.marketplace.reduce((acc, product) => acc + product.price, 0);
+const averagePrice = totalPrices / marketplaces.marketplace.length;
+
+console.log(averagePrice);
 
 /**
  * 🏎
