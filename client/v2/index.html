@@ -22,18 +22,21 @@
       <div id="filters">
         <label for="filteredby">Filtered by :</label>
         <select name="filters" id="filteredby">
+          <option disabled selected value>Select an option</option>
           <option id="RP">Reasonable price</option>
           <option id="RR">Recently released</option>
           <option id="brand">
             <label for="brand-select">By brand:</label>
-            <select name="brand" id="brand-select"> 
-              <option value="">All brands</option>
-              <option value="CoteleParis">CoteleParis</option>
-              <option value="Dedicated">Dedicated</option>
-              <option value="Aatise">Aatise</option>
-              <option value="Adresse">Adresse</option>
-              <option value="1083">1083</option>
-              <option value="hast">Hast</option>
+            <select name="brand" id="brand-select">
+              <optgroup label="Which brand ?">
+                <option value="">All brands</option>
+                <option value="CoteleParis">CoteleParis</option>
+                <option value="Dedicated">Dedicated</option>
+                <option value="Aatise">Aatise</option>
+                <option value="Adresse">Adresse</option>
+                <option value="1083">1083</option>
+                <option value="hast">Hast</option>
+              </optgroup>
             </select>
             </option>
         </select>
