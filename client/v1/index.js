@@ -413,13 +413,26 @@ const hasNewProducts = COTELE_PARIS.some(product => {
 // // 1. Log if coteleparis is a reasonable price shop (true or false)
 // // A reasonable price if all the products are less than 100€
 
+const isReasonablePriceShop = COTELE_PARIS.every(product => product.price < 100);
+
+//console.log(isReasonablePriceShop);
+
+
 // 🎯 TODO 3: Find a specific product
 // 1. Find the product with the uuid `2b9a47e3-ed73-52f6-8b91-379e9c8e526c`
 // 2. Log the product
 
+const product = COTELE_PARIS.find(p => p.uuid === '2b9a47e3-ed73-52f6-8b91-379e9c8e526c');
+
+//console.log(product);
+
 // 🎯 TODO 4: Delete a specific product
 // 1. Delete the product with the uuid `2b9a47e3-ed73-52f6-8b91-379e9c8e526c`
 // 2. Log the new list of product
+
+const updatedProducts = COTELE_PARIS.filter(p => p.uuid !== '2b9a47e3-ed73-52f6-8b91-379e9c8e526c');
+
+//console.log(updatedProducts);
 
 // 🎯 TODO 5: Save the favorite product
 // We declare and assign a variable called `blueJacket`
@@ -442,7 +455,15 @@ let jacket = blueJacket;
 jacket.favorite = true;
 
 // 1. Log `blueJacket` and `jacket` variables
+
+//console.log(blueJacket);
+//console.log(jacket);
+
 // 2. What do you notice?
+
+//both blueJacket and jacket variables have a favorite property set to true. This is because in JavaScript, objects are 
+//assigned and passed by reference, which means that jacket is not a new copy of blueJacket, but rather a reference to the 
+//same object in memory. 
 
 // we make a new assignment again
 blueJacket = {
@@ -459,6 +480,8 @@ blueJacket = {
 
 // 3. Update `jacket` property with `favorite` to true WITHOUT changing blueJacket properties
 
+jacket = {blueJacket, favorite: true };
+
 /**
  * 🎬
  * The End: last thing to do
@@ -468,3 +491,9 @@ blueJacket = {
 // 🎯 LAST TODO: Save in localStorage
 // 1. Save MY_FAVORITE_BRANDS in the localStorage
 // 2. log the localStorage
+
+const LocalStorage = require('node-localstorage').LocalStorage;
+const localStorage = new LocalStorage('./localStorage');
+
+localStorage.setItem("favoriteBrands", JSON.stringify(MY_FAVORITE_BRANDS));
+console.log(localStorage.getItem("favoriteBrands"));
