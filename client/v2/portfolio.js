@@ -28,6 +28,11 @@ const selectBy = document.querySelector('#filters');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 
+const reasonablePrice = document.querySelector('#RP[value<50]');
+
+const twoWeeksAgo = new Date(Date.now() - (14 * 24 * 60 * 60 * 1000)).toISOString();
+const recentRelease = document.querySelectorAll('#RR[data-release-date>="' + twoWeeksAgo + '"]');
+
 /**
  * Set global value
  * @param {Array} result - products to display
