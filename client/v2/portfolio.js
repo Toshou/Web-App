@@ -28,11 +28,6 @@ const selectBy = document.querySelector('#filters');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 
-const reasonablePrice = document.querySelector('#RP');
-
-const twoWeeksBefore2020 = new Date('2020-01-01');
-twoWeeksBefore2020.setDate(twoWeeksBefore2020.getDate() - 14);
-const recentRelease = document.querySelectorAll('#RR[data-release-date>="' + twoWeeksBefore2020.toISOString() + '"]');
 
 /**
  * Set global value
