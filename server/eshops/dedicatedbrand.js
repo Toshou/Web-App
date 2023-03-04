@@ -1,4 +1,58 @@
 
+const fetch = require('node-fetch');
+const cheerio = require('cheerio');
+
+/**
+ * Parse webpage e-shop
+ * @param  {String} data - html response
+ * @return {Array} products
+ */
+const parse = data => {
+  const $ = cheerio.load(data);
+
+  return $('.productList-container .productList')
+    .map((i, element) => {
+      const name = $(element)
+        .find('.productList-title')
+        .text()
+        .trim()
+        .replace(/\s/g, ' ');
+      const price = parseInt(
+        $(element)
+          .find('.productList-price')
+          .text()
+      );
+
+      return {name, price};
+    })
+    .get();
+};
+
+
+
+/**
+ * Scrape all the products for a given url page
+ * @param  {[type]}  url
+ * @return {Array|null}
+ */
+module.exports.scrape = async url => {
+  try {
+    const response = await fetch(url);
+
+    if (response.ok) {
+      const body = await response.text();
+
+      return parse(body);
+    }
+
+    console.error(response);
+
+    return null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 
 const axios = require('axios');
 const cheerio = require('cheerio');
@@ -9,18 +63,19 @@ axios.get(url)
   .then(response => {
     const html = response.data;
     const $ = cheerio.load(html);
-    const newsItems = $('.product-list-item');
+    const newsItems = $('.productList');
 
     const news = [];
 
     newsItems.each((i, el) => {
-      const name= $(el).find('.product-name').text().trim();
-      const price = $(el).find('.product-price').text().trim();
-      const image = $(el).find('.product-image img').attr('src');
+      const title= $(el).find('.productList-title').text().trim();
+      const price = $(el).find('.productList-price').text().trim();
 
-      news.push({ title, price, image });
+      news.push({ title, price});
     });
 
     console.log(news);
   })
   .catch(console.error);
+
+
