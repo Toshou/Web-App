@@ -1,52 +1,26 @@
-const fetch = require('node-fetch');
+
+
+const axios = require('axios');
 const cheerio = require('cheerio');
 
-/**
- * Parse webpage e-shop
- * @param  {String} data - html response
- * @return {Array} products
- */
-const parse = data => {
-  const $ = cheerio.load(data);
+const url = 'https://www.dedicatedbrand.com/en/men/news';
 
-  return $('.productList-container .productList')
-    .map((i, element) => {
-      const name = $(element)
-        .find('.productList-title')
-        .text()
-        .trim()
-        .replace(/\s/g, ' ');
-      const price = parseInt(
-        $(element)
-          .find('.productList-price')
-          .text()
-      );
+axios.get(url)
+  .then(response => {
+    const html = response.data;
+    const $ = cheerio.load(html);
+    const newsItems = $('.product-list-item');
 
-      return {name, price};
-    })
-    .get();
-};
+    const news = [];
 
-/**
- * Scrape all the products for a given url page
- * @param  {[type]}  url
- * @return {Array|null}
- */
-module.exports.scrape = async url => {
-  try {
-    const response = await fetch(url);
+    newsItems.each((i, el) => {
+      const name= $(el).find('.product-name').text().trim();
+      const price = $(el).find('.product-price').text().trim();
+      const image = $(el).find('.product-image img').attr('src');
 
-    if (response.ok) {
-      const body = await response.text();
+      news.push({ title, price, image });
+    });
 
-      return parse(body);
-    }
-
-    console.error(response);
-
-    return null;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
+    console.log(news);
+  })
+  .catch(console.error);
