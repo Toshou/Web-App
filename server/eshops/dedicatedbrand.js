@@ -70,6 +70,7 @@ axios.get(url)
     newsItems.each((i, el) => {
       const title= $(el).find('.productList-title').text().trim();
       const price = $(el).find('.productList-price').text().trim();
+      const image = $(el).find('.productList-image-materialInfo').text().trim();
 
       news.push({ title, price});
     });
