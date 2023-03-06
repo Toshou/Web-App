@@ -6,18 +6,15 @@ const url = 'https://www.montlimart.com/99-vetements';
 axios.get(url)
   .then(response => {
     const html = response.data;
-    const $ = cheerio.load(html);
-    const productItems = $('.products-list');
-
-    const products = [];
-
-    productItems.each((i, el) => {
-      const name = $(el).find('.product-miniature__title').text().trim();
-      const price = $(el).find('.price').text().trim();
-
-      products.push({ name, price });
+    const products = html.products;
+    
+    const productNamesAndPrices = products.map(product => {
+      return {
+        name: product.name,
+        price: product.price
+      };
     });
 
-    console.log(products);
+    console.log(productNamesAndPrices );
   })
   .catch(console.error);
