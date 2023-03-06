@@ -7,18 +7,17 @@ axios.get(url)
   .then(response => {
     const html = response.data;
     const $ = cheerio.load(html);
-    const newsItems = $('.products-list');
+    const productItems = $('.product-miniature');
 
-    const news = [];
+    const products = [];
 
-    newsItems.each((i, el) => {
-      const title= $(el).find('.product-miniature-title').text().trim();
-      const price = $(el).find('.product-miniature-price').text().trim();
-      const image = $(el).find('.productList-image').text().trim();
+    productItems.each((i, el) => {
+      const name = $(el).find('.product-title a').text().trim();
+      const price = $(el).find('.price').text().trim();
 
-      news.push({ title, price});
+      products.push({ name, price });
     });
 
-    console.log(news);
+    console.log(products);
   })
   .catch(console.error);
