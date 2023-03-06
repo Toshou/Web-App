@@ -7,12 +7,12 @@ axios.get(url)
   .then(response => {
     const html = response.data;
     const $ = cheerio.load(html);
-    const productItems = $('.product-miniature');
+    const productItems = $('.products-list');
 
     const products = [];
 
     productItems.each((i, el) => {
-      const name = $(el).find('.product-title a').text().trim();
+      const name = $(el).find('.product-miniature__title').text().trim();
       const price = $(el).find('.price').text().trim();
 
       products.push({ name, price });
