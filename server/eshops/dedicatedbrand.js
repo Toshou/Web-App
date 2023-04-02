@@ -56,6 +56,8 @@ module.exports.scrape = async url => {
 
 const axios = require('axios');
 const cheerio = require('cheerio');
+const fs = require('fs');
+
 
 const url = 'https://www.dedicatedbrand.com/en/men/news';
 
@@ -75,7 +77,12 @@ axios.get(url)
       news.push({ title, price});
     });
 
-    console.log(news);
+    //console.log(news);
+    // Convert the list to JSON format
+    const newsJSON = JSON.stringify(news);
+
+    // Write the JSON to a file
+    fs.writeFileSync('dedicatedbrand.json', newsJSON);
   })
   .catch(console.error);
 
