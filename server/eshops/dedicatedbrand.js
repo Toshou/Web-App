@@ -70,11 +70,11 @@ axios.get(url)
     const news = [];
 
     newsItems.each((i, el) => {
+      const brand= "dedicatedbrand";
       const title= $(el).find('.productList-title').text().trim();
-      const price = $(el).find('.productList-price').text().trim();
-      const image = $(el).find('.productList-image').text().trim();
+      const price = $(el).find('.productList-price').text().trim().replace("EUR", "€");
 
-      news.push({ title, price});
+      news.push({ brand, title, price});
     });
 
     //console.log(news);

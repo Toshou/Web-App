@@ -1,5 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const fs = require('fs');
 
 const url = 'https://www.montlimart.com/99-vetements';
 
@@ -10,11 +11,17 @@ axios.get(url)
     
     const productNamesAndPrices = products.map(product => {
       return {
-        name: product.name,
-        price: product.price
+        brand : "Montlimart",
+                title:product.name, 
+                price:product.price.replace(",", ".")
       };
     });
 
-    console.log(productNamesAndPrices );
+    //console.log(productNamesAndPrices );
+    // Convert the list to JSON format
+    const productNamesAndPricesJSON = JSON.stringify(productNamesAndPrices);
+
+    // Write the JSON to a file
+    fs.writeFileSync('montlimart.json', productNamesAndPricesJSON);
   })
   .catch(console.error);
